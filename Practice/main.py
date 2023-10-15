@@ -1,14 +1,14 @@
-PI = 3.14
+from factory import create_app
 
-def circle_area(r):
-   return PI * (r ** 2)
+S = create_app
 
+s_circle = S.circle_area(int(input('Введите радиус круга: ')))
+print('Введите размеры сторон квадрата')
+s_rect = S.rect_area(int(input('a = ')), int(input('b = ')))
 
-def rect_area(a, b):
-   return a * b
-
-
-if __name__ == '__main__':
-   # проверяем работоспособность функции, дальнейшая часть не будет импортирована
-   assert circle_area(5) == 78.5  # если ответы будут отличаться, то будет вызвана ошибка
-   assert rect_area(5, 4) == 20
+if s_circle > s_rect:
+    print('Площадь круга больше квадрата')
+elif s_circle < s_rect:
+    print('Площадь квадрата больше круга')
+else:
+    print('Площади фигур равны')

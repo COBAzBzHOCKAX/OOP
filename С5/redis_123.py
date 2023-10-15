@@ -1,8 +1,31 @@
 import redis
+import json
 
 
 red = redis.Redis(
-    host = 'redis-19865.c304.europe-west1-2.gce.cloud.redislabs.com',
-    port = 19865,
-    password = 'gLcNQog6raHaA6evxtq9w23xUQ5ubhIJ'
+    host = 'localhost',
+    port = 6379,
 )
+
+cont = True
+
+while cont:
+    action = input('action:\t')
+    if action == 'write':
+        name = input('name:\t')
+        phone = input('phone:\t')
+        red.set(name, phone)
+    elif action == 'read':
+        name = input('name:\t')
+        phone = red.get(name)
+        if phone:
+            print(f'{name}\'s phone is {str(phone)}')
+    elif action == 'delete':
+        name = input('name:\t')
+        phone = red.delete(name)
+        if phone:
+            print(f"{name}'s phone is deleted")
+        else:
+            print(f"Not found {name}")
+    elif action == 'stop':
+        break
